@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Android-LPU</string>
+    <string name="this_is_an_activity">This is an activity</string>
+    <string name="this_is_a_fragment">This is a fragment</string>
+</resources>
