@@ -11,19 +11,24 @@ import org.jetbrains.anko.support.v4.toast
 
 class HomeFragment: Fragment(), HomeListener {
 
+    private val ui = HomeUi()
+    private val pr = HomePresenter()
+
     override fun onUiBtnFragmentClicked() {
         ui.hideLoading()
         toast("You are clicked a button in fragment")
     }
 
-    private val ui = HomeUi()
-    private val pr = HomePresenter()
+    override fun onPrDataResponse(data: String) {
+        toast(data)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         ui.initFrom(view, this)
         ui.showLoading()
         ui.initListener()
+        pr.initFrom(this)
         return view
     }
 
@@ -33,5 +38,6 @@ class HomeFragment: Fragment(), HomeListener {
             override fun onReadSuccess() {}
             override fun onReadError() {}
         })
+        pr.requestAnyData()
     }
 }

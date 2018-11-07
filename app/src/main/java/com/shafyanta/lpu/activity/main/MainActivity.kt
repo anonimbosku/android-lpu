@@ -9,13 +9,17 @@ import org.jetbrains.anko.toast
 
 class MainActivity: AppCompatActivity(), MainListener {
 
+    private val ui = MainUi()
+    private val pr = MainPresenter()
+
     override fun onUiLoginBtnClicked() {
         ui.hideLoading()
         toast("Your are clicked a button in activity")
     }
 
-    private val ui = MainUi()
-    private val pr = MainPresenter()
+    override fun onPrDataResponse(data: String) {
+        toast(data)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +27,8 @@ class MainActivity: AppCompatActivity(), MainListener {
         ui.initFor(this)
         ui.initToolbar()
         ui.initListener()
-
         ui.initFragment()
+        pr.initFor(this)
     }
 
     override fun onResume() {
@@ -34,6 +38,7 @@ class MainActivity: AppCompatActivity(), MainListener {
             override fun onReadSuccess(){}
             override fun onReadError(){}
         })
+        pr.requestAnyData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
