@@ -7,13 +7,8 @@ import com.shafyanta.lpu.activity.ActivityUi
 import com.shafyanta.lpu.fragment.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainUi: ActivityUi {
-
+class MainUi(private val listener: MainListener): ActivityUi {
     override lateinit var activity: AppCompatActivity
-
-    override fun initFor(activity: AppCompatActivity) {
-        this.activity = activity
-    }
 
     override fun initToolbar() {
         activity.setSupportActionBar(activity.tb_main)
@@ -22,8 +17,7 @@ class MainUi: ActivityUi {
     }
 
     override fun initListener() {
-        val listener = activity as MainListener
-        activity.btn_main.setOnClickListener { listener.onUiLoginBtnClicked() }
+        activity.btn_main.setOnClickListener { listener.onUiBtnClicked() }
     }
 
     override fun showLoading() {

@@ -6,7 +6,10 @@ interface ActivityUi {
 
     var activity: AppCompatActivity
 
-    fun initFor(activity: AppCompatActivity)
+    fun initFor(activity: AppCompatActivity){
+        this.activity = activity
+    }
+
     fun initToolbar()
     fun initListener()
     fun showLoading()

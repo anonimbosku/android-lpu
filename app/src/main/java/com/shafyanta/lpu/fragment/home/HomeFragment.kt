@@ -11,33 +11,29 @@ import org.jetbrains.anko.support.v4.toast
 
 class HomeFragment: Fragment(), HomeListener {
 
-    private val ui = HomeUi()
-    private val pr = HomePresenter()
+    private val ui = HomeUi(this)
+    private val pr = HomePresenter(this)
 
-    override fun onUiBtnFragmentClicked() {
-        ui.hideLoading()
-        toast("You are clicked a button in fragment")
+    override fun onUiBtnClicked() {
+        ui.showLoading()
+        pr.loginUser("username", "password")
     }
 
-    override fun onPrDataResponse(data: String) {
-        toast(data)
+    override fun onPrDataResponse(result: String) {
+        toast(result)
+        ui.hideLoading()
+    }
+
+    override fun onPrDataError(message: String) {
+        toast(message)
+        ui.hideLoading()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         ui.initFrom(view, this)
-        ui.showLoading()
-        ui.initListener()
         pr.initFrom(this)
+        ui.initListener()
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        pr.loginUser(object: FBRListener{
-            override fun onReadSuccess() {}
-            override fun onReadError() {}
-        })
-        pr.requestAnyData()
     }
 }

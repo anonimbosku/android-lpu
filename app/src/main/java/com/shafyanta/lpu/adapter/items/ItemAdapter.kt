@@ -31,10 +31,9 @@ class ItemAdapter(private val context: Context?, private val listItem: ArrayList
 
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bindItem(item: Item, listener: ItemListener) {
-            Glide.with(containerView).load("").into(containerView.iv_item)
-            containerView.btn_item.setOnClickListener {
-                listener.onItemClicked(item)
-            }
+            containerView.tv_item.text = item.title
+            Glide.with(containerView).load(item.imageUrl).into(containerView.iv_item)
+            containerView.btn_item.setOnClickListener { listener.onItemClicked(item) }
         }
     }
 }

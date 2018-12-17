@@ -1,6 +1,7 @@
 package com.shafyanta.lpu.fragment.home
 
 interface HomeListener {
-    fun onUiBtnFragmentClicked()
-    fun onPrDataResponse(data: String)
+    fun onPrDataResponse(result: String)
+    fun onPrDataError(message: String)
+    fun onUiBtnClicked()
 }

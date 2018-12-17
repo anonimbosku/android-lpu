@@ -5,20 +5,17 @@ import com.shafyanta.lpu.activity.ActivityPr
 import com.shafyanta.lpu.firebase.FBRListener
 import com.shafyanta.lpu.firebase.Firebase
 
-class MainPresenter: ActivityPr {
+class MainPresenter(private val listener: MainListener): ActivityPr {
     override lateinit var activity: AppCompatActivity
-    lateinit var listener: MainListener
 
-    override fun initFor(activity: AppCompatActivity) {
-        this.activity = activity
-        this.listener = activity as MainListener
-    }
-
-    fun loginUser(fbrListener: FBRListener){
-        Firebase.loginUser(fbrListener)
-    }
-
-    fun requestAnyData(){
-        listener.onPrDataResponse("data from request")
+    fun loginUser(un: String, ps: String){
+        Firebase.loginUser(object: FBRListener{
+            override fun onReadSuccess(){
+                listener.onPrDataResponse("data response")
+            }
+            override fun onReadError(){
+                listener.onPrDataError("data error")
+            }
+        })
     }
 }
